@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   server.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: parisasadeqi <parisasadeqi@student.coda      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/02/19 11:46:19 by parisasadeq   #+#    #+#                 */
-/*   Updated: 2024/02/19 12:02:31 by parisasadeq   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   server.cpp                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: psadeghi <psadeghi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/19 11:46:19 by parisasadeq       #+#    #+#             */
+/*   Updated: 2024/02/20 14:15:24 by psadeghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <string>
+#include <cerrno>
+#include <cstring>
 
 #define PORT "4242"
 #define BACKLOG 10
@@ -54,7 +56,7 @@ int main (void)
 	addr_size = sizeof client_addr;
 	client_fd = accept(socket_fd, reinterpret_cast<struct sockaddr *>(&client_addr), &addr_size);
 	if (client_fd == -1) {
-		std::cerr << "accept: " << strerror(errno) << std::endl;
+		std::cerr << "accept: " << std::strerror(errno) << std::endl;
 		return 3;
 	}
 	std::cout << "New connection! Socket fd: " << socket_fd << ", client fd: " << client_fd << std::endl;
